@@ -1,0 +1,74 @@
+@charset 'utf-8';
+
+@import url('parts/appWindowBtn.css');
+/*
+	welcome 页面
+	-----------------------
+*/
+.welcome-box {
+	height: 100vh;
+	width: 100vw;
+	padding: 40px 0;
+	text-align: center;
+	color: #333;
+	box-sizing: border-box;
+	-webkit-app-region: drag; /* 拖动元素时,窗口随之移动 */
+}
+
+.welcome-box figure {
+	width: 145px;
+	height: 145px;
+	margin: 10px auto 0;
+}
+.welcome-box figure img {
+	width: 100%;
+}
+
+.logo-error {
+	opacity: 0;
+	font-size: 12px;
+	color: red;
+	padding: 10px 10px 0;
+	transform: opacity .3s ease;
+}
+.logo-error.show {
+	opacity: 1;
+}
+
+.logo-form input {
+	display: block;
+	width: 85%;
+	margin: 10px auto 0;
+	font-size: 16px;
+	line-height: 2em;
+	color: #333;
+	border: none;
+	border-bottom: 2px solid #B2B2B2;
+	background: transparent;
+	outline: none;
+    -webkit-app-region: no-drag;
+}
+.logo-form input:focus {
+	border-bottom-color: #FF4545;
+}
+
+.logo-form button {
+	width: 85%;
+	margin: 25px auto 0;
+	font-size: 18px;
+	line-height: 2.2em;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF4545;
+	cursor: pointer;
+	outline: none;
+	transition: background-color .3s ease;
+}
+.logo-form button:hover {
+	background-color: #ff6d6d;
+}
+.logo-form button[disabled] {
+	background-color: #b2b2b2;
+}
+

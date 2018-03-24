@@ -1,0 +1,157 @@
+<div class="os-work-list-mod">
+	<aside class="os-date-box">
+
+		<div id="todo-type-list" class="my-works-desktop">
+			<h1>计划列表 
+				<button @click="addNewType" class="tbtn">
+					<svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 12 16" width="12">
+						<path d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"></path>
+					</svg>
+				</button>
+			</h1>
+			<ul>
+				<li v-for="(val,index) in typeList"
+					:key="val.id" 
+					:class="val.hold"
+					:data-index="index" 
+					@click="findThisTypeIndex"
+					@contextmenu.prevent="rightClick"
+				>
+					<input type="text"
+						v-if="val.readonly" 
+						:value="val.name"
+						v-on:keyup.enter="willSaveTodoType"
+						v-on:blur="saveTodoType"
+						>
+					<span v-else >{{val.name}}</span>
+				</li>
+			</ul>
+		</div>
+		
+		<div id="events-calendar-mod" class="fixed-calendar-mod">
+			<v-date-picker 
+				format="YYYY-MM"
+				:events="events"
+				v-on:send-date="getVDatePicker"
+			></v-date-picker>
+		</div>
+	</aside>
+
+	<div id="todoList-main-app" class="os-day-works-box">
+		<header class="os-day-header">
+			<div class="hd-day-inner">
+				<div class="title">{{ headerTime.date }}</div>
+				<div class="inner">
+					<p>{{ headerTime.dayFormat }}</p>
+					<p>{{ headerTime.year }} 年 {{ headerTime.month }} 月</p>
+				</div>
+			</div>
+			<div class="hd-btns-box">
+				<button class="tbtn add-todo-event" @click="addOneEvent"  :disabled="createNewEvent">
+					<svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 12 16" width="12">
+						<path d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"></path>
+					</svg>
+				</button>
+			</div>
+		</header>
+		
+		<div id="todo-eventsList-app" class="todo-list-box">
+			<div class="no-work-plane">
+				<h3>没有工作安排!</h3>
+				<p class="remid-msg">小技巧: 你可以点击右上角的加号,自行添加哟!</p>
+			</div>
+			<ul>
+				<li v-for="(event, index) in events"
+					class="event-rows"
+					:data-id="event.id" 
+					:data-index="index"
+					data-parent="${data.parent}" 
+					data-time="${data.startTime}"
+					@mouseenter="mouseOver"
+					@contextmenu.prevent="quickSetEvent"
+				>
+				<div class="header">
+					<label>
+						<input class="is-done" type="checkbox" :checked="event.complete" @click="updateCheck(index, $event)">
+					</label>
+					<div class="title-box">
+						<input class="title" 
+							placeholder=" 输入你的事件吧 ;)" 
+							:value="event.title" 
+							@keyup="insertData('title', index, $event)"
+							@blur="blurTitle"
+						/>
+					</div>
+					<span class="li-btns-box">
+						<button 
+							@click="showEventsInfo" 
+							class="tbtn arrow-ico down-arrow"
+							:data-parentIndex="index"
+							:data-parentId="event.id"
+						></button>
+					</span>
+				</div>
+				<ul class="inner">
+					<dl class="event-make-col">
+						<dt>开始:</dt>
+						<dd>
+							<p class="date-select-ui" @click="changeEventDate('stime', index, $event)">
+								{{event.stimeF}}
+							</p>
+						</dd>
+					</dl>
+					
+					<dl v-show="event.etimeF" class="event-make-col">
+						<dt>结束:</dt>
+						<dd>
+							<p 
+								class="date-select-ui"
+								@click="changeEventDate('etime', index, $event)"
+							>
+								{{event.etimeF}}
+							</p>
+						</dd>
+					</dl>
+					
+					<dl>
+						<dt>备注:</dt>
+						<dd>
+							<textarea 
+								@keyup="insertData('inner', index, $event)" 
+								class="inner-box"
+								@focus="removeTextAreaAni"
+								@blur="resetTextAreaAni"
+							>{{event.inner}}</textarea>
+						</dd>
+					</dl>
+				</ul>
+			</li>
+			</ul>
+		</div>
+		
+	</div>
+	
+	<!-- 浮动时间组件 -->
+	<section 
+		v-if="show"
+		id="fixed-date-mod" 
+		class="fixed-date-mod" 
+		@click="hideThisLayer"
+	>
+		<transition name="fade-fixed-date">
+			<div class="fixed-date-inner" 
+				v-bind:style="{top: rectInfo.top + 20+'px'}"
+			>
+				<v-date-picker 
+					:default-val="defVal"
+					format="YYYY-MM"
+					:events="events"
+					has-footer="hasfooter"
+					v-on:send-date="getUserDatePicker"
+				></v-date-picker>
+			</div>
+		</transition>
+	</section> 
+
+</div>
+

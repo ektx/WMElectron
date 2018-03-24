@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>MyWork</title>
+	<link rel="stylesheet" href="os/css/reset-1.3.3.css">
+	<link rel="stylesheet" href="os/css/layout.css">
+
+	<link rel="stylesheet" href="app/todolist/contents/css/todolist.css">
+</head>
+<body>
+
+	<aside class="os-aside">
+		<!-- <header class="usr-box">
+			<img src="contents/bin/img/usr/kings.png">
+		</header> -->
+		<ul class="main-nav">
+			<li title="计划表">
+				<div class="work-lists-nav data-day-ico">-</div>
+			</li>
+		</ul>
+	</aside>
+
+	<section id="os-main-windows" class="os-main-mod"></section>
+
+
+	<script>
+	// 移交 node require ,兼容JQ
+	window.nodeRequire = require;
+	// delete window.require;
+	// delete window.exports;
+	// delete window.module;	
+	</script>
+
+	<script src="os/lib/jQuery/jquery-3.1.0.min.js"></script>
+	<script src="os/lib/Vue/vue.js"></script>
+	<script src="os/lib/Vue-Router/vue-router.js"></script>
+	<script src="os/js/calendar.js"></script>
+
+	<script src="os/js/VDatePicker.js"></script>
+	<script src="os/js/os.js"></script>
+	<script src="os/js/indexedDB.js"></script>
+	<script src="os/js/webSQL.js"></script>
+
+</body>
+</html>
